@@ -3,6 +3,7 @@ import { ArrowDownToLine, ArrowRight, Check, CircleHelp, Layers3, Plus, Printer,
 import { calculateEqualCuts } from './engine/equalCuts';
 import { DEFAULT_KERF, getBoardSpec } from './engine/boards';
 import { optimizeCut } from './engine/optimizer';
+import PrintReport from './PrintReport';
 import type { EdgeFlags, Material, Part } from './engine/types';
 
 const blankEdges: EdgeFlags = { top: false, right: false, bottom: false, left: false };
@@ -34,7 +35,7 @@ function App() {
 
   return <div className="app-shell">
     <aside className="sidebar">
-      <div className="brand"><div className="brand-mark"><Scissors size={23} strokeWidth={2.7}/></div><div><div className="brand-name">LEBER<span>CUT</span></div><div className="brand-sub">CUT SMARTER.</div></div></div>
+      <div className="brand"><div className="brand-mark"><Scissors size={23} strokeWidth={2.7}/></div><div><div className="brand-name">LEBER<span>CUT</span></div><div className="brand-sub">MĄDRE CIĘCIE TEŻ ZAJĘCIE</div></div></div>
       <div className="side-label">WORKSPACE</div>
       <button className={`nav-item ${tab === 'layout' ? 'active' : ''}`} onClick={() => setTab('layout')}><Layers3 size={18}/> Rozkrój płyt</button>
       <button className={`nav-item ${tab === 'equal' ? 'active' : ''}`} onClick={() => setTab('equal')}><Ruler size={18}/> Cięcie na kawałki</button>
@@ -53,7 +54,7 @@ function App() {
             <div className="material-options"><button className={material === 'furniture' ? 'selected' : ''} onClick={() => setMaterial('furniture')}><span className="material-swatch furniture"/><span><b>Płyta meblowa</b><small>2800 × 2070 mm</small></span>{material === 'furniture' && <Check size={16}/>}</button><button className={material === 'osb' ? 'selected' : ''} onClick={() => setMaterial('osb')}><span className="material-swatch osb"/><span><b>OSB</b><small>2500 × 1250 mm</small></span>{material === 'osb' && <Check size={16}/>}</button><button className={material === 'custom' ? 'selected' : ''} onClick={() => setMaterial('custom')}><span className="material-swatch custom"/><span><b>Własny</b><small>Wymiary ręczne</small></span>{material === 'custom' && <Check size={16}/>}</button></div>
             {material === 'custom' && <div className="inline-fields"><NumberField label="DŁUGOŚĆ PŁYTY" value={customWidth} onChange={setCustomWidth}/><NumberField label="SZEROKOŚĆ PŁYTY" value={customHeight} onChange={setCustomHeight}/></div>}
             <div className="settings-row"><div><label>RZAZ TARCZY</label><p>Strata materiału na każde cięcie</p></div><div className="unit-input"><input type="number" min="0" step="0.1" value={kerf} onChange={e => setKerf(Math.max(0, Number(e.target.value)))}/><span>mm</span></div></div>
-            <div className="info-note"><CircleHelp size={16}/><span>{material === 'osb' ? 'OSB: program odejmuje 20 mm z każdej krawędzi. Pole robocze: 2460 × 1210 mm.' : 'Kierunek słojów jest stały. Formatki nie są obracane o 90°.'}</span></div>
+            <div className="info-note"><CircleHelp size={16}/><span> {material === 'osb' ? 'OSB: pełny wymiar roboczy 2500 × 1250 mm — bez odejmowania krawędzi.' : material === 'furniture' ? 'Płyta meblowa: odjęto 20 mm z każdej krawędzi. Pole robocze: 2760 × 2030 mm. Kierunek słojów jest stały.' : 'Własny format: podane wymiary są wymiarami roboczymi. Kierunek słojów jest stały.'}</span></div>
             <div className="panel-divider"/>
             <div className="parts-heading"><div><div className="panel-kicker">02 / LISTA FORMATEK</div><h2>Elementy do wycięcia</h2></div><span className="count-pill">{parts.reduce((s,p)=>s+p.quantity,0)} szt.</span></div>
             <div className="parts-list">{parts.map((part, index) => <div className="part-card" key={part.id}><div className="part-card-top"><span className="part-index">{String(index+1).padStart(2,'0')}</span><input className="part-name" placeholder="Nazwa formatki" value={part.name} onChange={e => updatePart(part.id,{name:e.target.value})}/><button className="icon-btn danger" aria-label="Usuń formatkę" onClick={() => setParts(p => p.filter(x => x.id !== part.id))}><Trash2 size={15}/></button></div><div className="part-dimensions"><NumberField label="DŁUGOŚĆ" value={part.length} onChange={v => updatePart(part.id,{length:v})}/><span className="dimension-x">×</span><NumberField label="SZEROKOŚĆ" value={part.width} onChange={v => updatePart(part.id,{width:v})}/><NumberField label="ILOŚĆ" value={part.quantity} min={1} onChange={v => updatePart(part.id,{quantity:Math.max(1,Math.floor(v))})}/></div>
@@ -78,6 +79,7 @@ function App() {
         <div className="equal-layout"><section className="panel equal-panel"><div className="panel-head"><div><div className="panel-kicker">01 / PARAMETRY MATERIAŁU</div><h2>Ustawienia cięcia</h2></div><span className="step-number">01</span></div><div className="equal-fields"><NumberField label="DŁUGOŚĆ CAŁKOWITA" value={cutLength} onChange={setCutLength} suffix="mm"/><NumberField label="LICZBA KAWAŁKÓW" value={cutCount} min={1} onChange={v => setCutCount(Math.max(1,Math.floor(v)))}/><NumberField label="RZAZ TARCZY" value={cutKerf} min={0} step={0.1} onChange={setCutKerf} suffix="mm"/></div><div className="info-note"><CircleHelp size={16}/><span>Liczba cięć wynosi zawsze o jedno mniej niż liczba gotowych kawałków. Każdy rzaz pomniejsza dostępną długość.</span></div></section>
           <section className="panel equal-result"><div className="panel-kicker">02 / WYNIK</div><div className="equal-result-label">DŁUGOŚĆ JEDNEGO KAWAŁKA</div><div className="equal-big">{equalResult ? equalResult.pieceLength.toFixed(2).replace('.',',') : '—'}<small>mm</small></div><div className="cut-visual">{Array.from({length:Math.min(12,Math.max(1,cutCount))},(_,i)=><div key={i} className="cut-piece"><span>{i+1}</span></div>)}</div><div className="equal-breakdown"><div><span>Gotowe kawałki</span><b>{cutCount} szt.</b></div><div><span>Liczba cięć</span><b>{equalResult?.totalCuts ?? '—'}</b></div><div><span>Łączna strata na rzaz</span><b>{equalResult ? `${equalResult.kerfLoss.toFixed(1)} mm` : '—'}</b></div><div><span>Długość wykorzystana</span><b>{equalResult ? `${(cutLength).toFixed(1)} mm` : '—'}</b></div></div>{!equalResult && <div className="warning-note">Sprawdź parametry — materiał musi być dłuższy niż suma rzazów.</div>}</section></div>
       </>}
+      {tab === 'layout' && <PrintReport plan={plan} board={board} material={material} kerf={kerf} projectName={projectName} />}
       <footer className="footer"><span>LEBERCUT © 2026</span><span>MADE FOR THE WORKSHOP <b>◆</b></span></footer>
     </main>
   </div>;
