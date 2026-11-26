@@ -13,3 +13,6 @@ Algorytm heurystyczny nie gwarantuje globalnego optimum. Przed cięciem należy 
 **[Otwórz LEBERCUT](https://nobodymichael.github.io/lebercut/)**
 
 HTML · CSS · JavaScript · GitHub Pages
+
+### Cutting plans
+Guillotine layouts are selected from 24 heuristic candidates, prioritizing board count and then physical saw passes. The optional cut sequence overlay is intended for operator verification.
