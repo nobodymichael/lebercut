@@ -2,7 +2,7 @@ export const materials={furniture:{label:'Płyta meblowa',w:2760,h:2030,nominal:
 export const grainDefault=(m,c)=>m==='furniture'&&!['Biała','Popiel'].includes(c)?'long':'any';
 export const edgeCode=p=>{const horizontal=Number(!!p.edges[0])+Number(!!p.edges[2]),vertical=Number(!!p.edges[1])+Number(!!p.edges[3]);const [d,k]=p.l>=p.w?[horizontal,vertical]:[vertical,horizontal];return (d?d+'D':'')+(k?k+'K':'')||'—'};
 export const edgeLength=p=>p.l*(Number(!!p.edges[0])+Number(!!p.edges[2]))+p.w*(Number(!!p.edges[1])+Number(!!p.edges[3]));
-export const orientations=p=>{const a={w:p.l,h:p.w,rot:false},b={w:p.w,h:p.l,rot:true};if(p.grain==='any')return p.l===p.w?[a]:[a,b];if(p.grain==='long')return [p.l>=p.w?a:b];return [p.l>=p.w?b:a]};
+export const orientations=p=>{const a={w:p.l,h:p.w,rot:false},b={w:p.w,h:p.l,rot:true};if(p.grain==='length')return [a];if(p.grain==='any')return p.l===p.w?[a]:[a,b];if(p.grain==='long')return [p.l>=p.w?a:b];return [p.l>=p.w?b:a]};
 const eps=1e-7;
 function split(r,o,k,axis){const dx=r.w-o.w,dy=r.h-o.h; if(dx < -eps||dy < -eps)return null; // a remaining strip narrower than the kerf cannot be isolated with an in-board cut
  if((dx>eps&&dx<k-eps)||(dy>eps&&dy<k-eps))return null;
