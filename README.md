@@ -1,18 +1,3 @@
-# LEBERCUT
-
-Przeglądarkowe narzędzie do planowania rozkroju płyt i cięcia na równe kawałki.
-
-- Rozkrój gilotynowy z wielowariantową heurystyką, rzazem i kierunkiem słojów.
-- Płyta meblowa, OSB, HDF; oddzielne rozkroje materiałów i kolorów.
-- Edytowalna tabela formatek, okleinowanie i licznik cięć rozliczeniowych.
-- Schematy oraz zestawienia do druku A4.
-- Lokalny zapis projektu i import/eksport JSON.
-
-Algorytm heurystyczny nie gwarantuje globalnego optimum. Przed cięciem należy zweryfikować schemat i możliwości stanowiska.
-
-**[Otwórz LEBERCUT](https://nobodymichael.github.io/lebercut/)**
-
-HTML · CSS · JavaScript · GitHub Pages
-
-### Cutting plans
-Guillotine layouts are selected from 24 heuristic candidates, prioritizing board count and then physical saw passes. The optional cut sequence overlay is intended for operator verification.
+# LEBERCUT 2.0 Beta 3
+Statyczna aplikacja. Wgraj index.html oraz cały assets/ do głównego katalogu repozytorium. Settings → Pages → Deploy from a branch → main → /(root). Własny workflow nie jest potrzebny.
+Tryb formularza: Tab przechodzi przez wymiary i ilość; Enter zatwierdza. Tryb tekstowy: 1500x300x2 1D2K W, Shift+Enter nowa linia, Enter dodaje. W/P/D oznaczają wzdłuż/poprzecznie/dowolnie. Identyczne pozycje są grupowane. Silnik gilotynowy Beta 2 pozostaje heurystyczny; sprawdź wykonalność na rzeczywistej pile.
