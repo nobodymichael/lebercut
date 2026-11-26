@@ -1,0 +1,3 @@
+# LEBERCUT / Carbon Blueprint
+Rozpakuj do katalogu głównego repozytorium lebercut. Nadpisz pliki z paczki, pozostaw dotychczasowe assets/app.js, assets/engine.js, assets/logo.png oraz pozostałe pliki. Aktualizacja bazuje na Beta 3. Silnik i dane zamówień pozostają bez zmian. Animacja startowa 4 s, wektorowy kontur logo odtworzony z istniejącego PNG, rysunek techniczny dekoracyjny. W razie niestandardowego hostingu zmień href="/" linku NOBODY.
+Testy silnika: 6/6. Renderowanie animacji sprawdzone w osadzonym Chromium; dostęp do localStorage był tam zablokowany, więc pełny test aplikacji nie był możliwy.
