@@ -12,3 +12,10 @@ body.carbon-loading{overflow:hidden!important}@media(prefers-reduced-motion:redu
 
 /* Enlarged wordmark, viewport-relative across devices. */
 .carbon-intro[data-kind=pulse] .intro-word{font-size:min(23vw,35dvh,330px)}.carbon-intro[data-kind=qr] .intro-word{font-size:min(21vw,31dvh,300px)}.carbon-intro[data-kind=exif] .intro-word{font-size:min(28vw,35dvh,400px)}@media(max-height:420px) and (orientation:landscape){.carbon-intro[data-kind=pulse] .intro-word,.carbon-intro[data-kind=qr] .intro-word,.carbon-intro[data-kind=exif] .intro-word{font-size:min(17vw,24dvh)}}
+
+.carbon-intro[data-kind=leber]{--duration:1200ms;background:radial-gradient(ellipse at center,#15396d,#060811 72%)}
+.carbon-intro[data-kind=leber] .blue-drawing>*{animation-duration:.25s;animation-delay:0s}
+.carbon-intro[data-kind=leber] .blue-dims{animation-duration:.2s;animation-delay:.15s}
+.carbon-intro[data-kind=leber] .blue-logo{animation-duration:.2s;animation-delay:.25s}
+.carbon-intro[data-kind=leber] .blue-logo path{animation-duration:.35s;animation-delay:.3s}
+.carbon-intro[data-kind=leber] .intro-art{max-height:45svh}
