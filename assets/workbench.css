@@ -50,3 +50,16 @@ main{max-width:1500px;padding:28px clamp(16px,3vw,48px) 72px}
   :root body .widget-board .tool-widget{--control-face:var(--glass-face)}
   :root body .widget-board .widget-market{--control-face:radial-gradient(ellipse at 60% 28%,#d7bb8123,transparent 54%),var(--glass-face)}
 }
+
+@media screen{
+html:has(body.dark),body.dark{background:radial-gradient(ellipse at 85% 4%,#39277555,transparent 55%),radial-gradient(ellipse at 0% 50%,#124caa44,transparent 60%),#060811;background-attachment:fixed;color:#edf4ff}
+body.dark{--line:#475b80;--muted:#a9bad6}
+body.dark .top,body.dark .modebar{background:#101a2be8;border-color:#53699755;color:#edf4ff}
+body.dark .panel{background:radial-gradient(ellipse at 100% 100%,#2650a339,transparent 60%),linear-gradient(145deg,#192943ba,#101725eb 70%,#1c2a48);border:1px solid #718cc45c;border-radius:20px;box-shadow:inset 0 1px #b5caff50,0 12px 35px #0005}
+body.dark .entry-table th{background:#233450;color:#dce8ff}
+body.dark :is(input,textarea,select){background:#101a2b;color:#eaf1ff;border-color:#4e6794}
+body.dark :is(button,.button){background-image:radial-gradient(ellipse 32px 3px at 98% 100%,#74a5ff88,transparent),radial-gradient(ellipse 3px 20px at 100% 98%,#9fb5ff44,transparent)}
+body.dark .primary,body.dark .tab.selected{background-color:#245ad2;color:white}
+.top .brand img.bench-emblem{width:145px;height:auto;max-height:46px;object-fit:contain;content:normal}
+.top .brand span{display:none}
+}
