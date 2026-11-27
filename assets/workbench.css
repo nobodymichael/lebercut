@@ -35,3 +35,18 @@ main{max-width:1500px;padding:28px clamp(16px,3vw,48px) 72px}
   body.dark .entry-table th{background:#242524;color:#e5e4dc}
   body.dark :is(input,textarea,select){background:#101111;color:#ecece7;border-color:#494a45}
 }
+@media screen {
+  .top .brand{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#e8edf3;font-weight:750;letter-spacing:-.055em}
+  .top .brand img.bench-emblem{content:normal;width:32px;height:32px}
+}
+@media screen {
+  /* Two narrow highlights meet at one corner and fade along its edges. */
+  :root body :is(button,.button,.tool-widget,.desk-nav a):not(:disabled){
+    background-image:
+      radial-gradient(ellipse 30px 2px at calc(100% - 5px) 100%,#ffedbf69,transparent),
+      radial-gradient(ellipse 2px 18px at 100% calc(100% - 4px),#e6e4db40,transparent),
+      var(--control-face,linear-gradient(transparent,transparent));
+  }
+  :root body .widget-board .tool-widget{--control-face:var(--glass-face)}
+  :root body .widget-board .widget-market{--control-face:radial-gradient(ellipse at 60% 28%,#d7bb8123,transparent 54%),var(--glass-face)}
+}
