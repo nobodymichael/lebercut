@@ -24,3 +24,14 @@ main{max-width:1500px;padding:28px clamp(16px,3vw,48px) 72px}
 @media(max-width:900px){.workgrid{grid-template-columns:1fr}.top .actions{margin-left:0}.top{gap:8px}.entry-table{min-width:510px}}
 }
 @media print{.modebar{display:none!important}}
+@media screen {
+  html:has(body.dark),body.dark{background:#000;color:#efeee8}
+  body.dark{--line:#474741;--muted:#babbb5}
+  body.dark .top,body.dark .modebar{background:#080909;color:#eeede7;border-color:#373732}
+  body.dark .panel{
+    background:linear-gradient(117deg,transparent 10%,#dce1e10c 24%,transparent 35%,transparent 69%,#f4d89b09 82%,transparent 94%),linear-gradient(135deg,#292a29 -12%,#141514 27%,#0d0e0e 58%,#22201c);
+    border:1px solid #514e46;border-radius:18px;box-shadow:inset 0 1px #ede6cf45,inset 0 -1px #ced4dc14
+  }
+  body.dark .entry-table th{background:#242524;color:#e5e4dc}
+  body.dark :is(input,textarea,select){background:#101111;color:#ecece7;border-color:#494a45}
+}
