@@ -19,3 +19,7 @@ body.carbon-loading{overflow:hidden!important}@media(prefers-reduced-motion:redu
 .carbon-intro[data-kind=leber] .blue-logo{animation-duration:.2s;animation-delay:.25s}
 .carbon-intro[data-kind=leber] .blue-logo path{animation-duration:.35s;animation-delay:.3s}
 .carbon-intro[data-kind=leber] .intro-art{max-height:45svh}
+
+.carbon-intro[data-kind=leber]{background:#0a0a0a;--intro:#6e9bd7}
+.carbon-intro[data-kind=leber]::before,.carbon-intro[data-kind=leber]::after{display:none}
+.carbon-intro[data-kind=leber] .blue-logo path{filter:none}
