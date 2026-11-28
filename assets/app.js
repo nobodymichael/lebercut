@@ -89,6 +89,32 @@ function validateGroup(g){
 function partDiagram(o,g,scale,print){
  const w=o.w*scale,h=o.h*scale,letter=partLetter(g,o.p);
  const horizontal=fmt(o.w),vertical=fmt(o.h);
+ // Printed workshop drawing: top width, left height, separate part identifier.
+ // Keep the screen renderer and optimizer unchanged.
+ if(print){
+  const n=horizontal.length,m=vertical.length,k=letter.length;
+  const pad=Math.min(5,w*.06,h*.06);
+  const rotate=w<h*.60 && w<100;
+  const f=Math.max(.1,Math.min(24,(w-2*pad)/(n*.72),(h-3*pad)/(rotate?3:2.7),rotate?(h-3*pad)/(m*.72+2):(w-3*pad)/(m*.72+k*.85+1)));
+  const top=pad+f*.8, middle=Math.max(top+f*.75,h/2);
+  const leftWidth=rotate?f: m*f*.72;
+  const letterLeft=pad+leftWidth+pad;
+  const available=Math.max(.1,w-letterLeft-pad);
+  const centerSize=Math.max(.1,Math.min(30,available/(k*.85),h*.32));
+  const cx=Math.max(letterLeft+centerSize*k*.43,w/2);
+  const cy=Math.min(h-pad-centerSize*.5,Math.max(middle,h*.57));
+  const edges=o.rot?[o.p.edges[3],o.p.edges[0],o.p.edges[1],o.p.edges[2]]:o.p.edges;
+  const edgePaths=[`M0 0H${w}`,`M${w} 0V${h}`,`M0 ${h}H${w}`,`M0 0V${h}`];
+  const outline=edges.map((v,i)=>v?`<path d="${edgePaths[i]}" stroke="#2364b3" stroke-width="3.5"/>`:'').join('');
+  return `<g transform="translate(${o.x*scale} ${o.y*scale})" data-letter="${letter}" data-part="${esc(o.p.id)}" font-family="Arial, Helvetica, sans-serif" fill="#111">
+   <title>${letter} · ${horizontal} × ${vertical} mm</title>
+   <rect width="${w}" height="${h}" fill="#fff" stroke="#333" stroke-width="1.3"/>${outline}
+   <text x="${w/2}" y="${top}" text-anchor="middle" font-size="${f}" font-weight="400">${horizontal}</text>
+   ${rotate?`<text transform="translate(${pad+f*.82} ${Math.max((h+top+f*.5)/2,h/2)}) rotate(-90)" text-anchor="middle" font-size="${f}">${vertical}</text>`:`<text x="${pad}" y="${middle}" dominant-baseline="central" text-anchor="start" font-size="${f}">${vertical}</text>`}
+   <text x="${cx}" y="${cy}" dominant-baseline="central" text-anchor="middle" fill="#444" font-size="${centerSize}" font-weight="600">${letter}</text>
+  </g>`;
+ }
+
  const size=Math.min(24,w/(horizontal.length*.65+2),h/(vertical.length*.65+2),w*.22,h*.22);
  const centerSize=Math.min(32,w*.44/(letter.length*.65),h*.44);
  const fill=print?'#fff':o.p.done?'#dce7dc':'#f1eee5';const edges=o.rot?[o.p.edges[3],o.p.edges[0],o.p.edges[1],o.p.edges[2]]:o.p.edges;const edgePaths=[`M0 0H${w}`,`M${w} 0V${h}`,`M0 ${h}H${w}`,`M0 0V${h}`];const outline=edges.map((v,i)=>v?`<path d="${edgePaths[i]}" stroke="#2364b3" stroke-width="3.5"/>`:'').join('');
