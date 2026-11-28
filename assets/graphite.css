@@ -39,9 +39,6 @@ body .cut-workbench .board .grain-note{color:#555}
 body.dark :is(.stats>div,.board-size,.command-bar,.batch){background:#1C1C1C;color:#F5F5F5;border-color:#333}
 body.dark :is(.stats small,.hint,.grain-help){color:#A3A3A3}
 body .top .brand::after{display:none}
-.carbon-intro[data-kind=leber]{background:#101010;color:#F5F5F5;--intro:#397BDF}
-.carbon-intro[data-kind=leber] .intro-track i{box-shadow:none}
-.carbon-intro[data-kind=leber]::before,.carbon-intro[data-kind=leber]::after{display:none}
 @media(max-width:600px){.paper-header{width:calc(100% - 32px);height:60px}body .top{padding:14px 16px}body .top #project{max-width:100%}body .top .actions{margin-left:0}}
 }
 @media print{.paper-system{display:none!important}}
@@ -66,7 +63,5 @@ body.dark :is(.stats>div,.board-size,.command-bar,.batch){background:#252525;bor
 body.dark .entry-table th{background:#252525}
 body.dark #archive,body.dark #stock-dialog{background:#1c1c1c;color:#f5f5f5;border:0;border-radius:24px}
 body.dark #archive .order-line{border-color:#333}
-.carbon-intro[data-kind=leber]{background:#101010;color:#f5f5f5;--intro:#6496E9}
-.carbon-intro .blue-logo path{filter:none}
 @media(max-width:600px){body .top{padding:16px}body .panel{border-radius:20px}}
 }
