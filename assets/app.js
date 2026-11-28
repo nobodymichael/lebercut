@@ -42,6 +42,11 @@ function rows(){
   tr.querySelector('.remove').onclick=()=>{checkpoint();g.rows.splice(i,1);render()};
   for(const input of tr.querySelectorAll('input')){
    const k=input.dataset.field;
+   // Prevent native text dragging from moving or inserting values between fields.
+   for(const event of ['dragstart','dragenter','dragover','drop']){
+    input.addEventListener(event,e=>{e.preventDefault();if(e.dataTransfer&&event==='dragover')e.dataTransfer.dropEffect='none';});
+   }
+   input.addEventListener('beforeinput',e=>{if(e.inputType==='insertFromDrop'||e.inputType==='deleteByDrag')e.preventDefault();});
    let advanceTimer;
    function nextRow(){
     if(!validateGroup(g))return;
